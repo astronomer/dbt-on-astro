@@ -8,7 +8,7 @@ with customers as (
 
 
 {#-
-Another change
+Looks like there is a bug here! Should be stg_orders
 #}
 orders as (
 

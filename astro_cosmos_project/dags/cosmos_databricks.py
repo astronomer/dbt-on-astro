@@ -7,16 +7,18 @@ from datetime import datetime
 from pathlib import Path
 
 from cosmos import DbtDag, ProjectConfig, ProfileConfig
-from cosmos.profiles import PostgresUserPasswordProfileMapping
+from cosmos.profiles import DatabricksTokenProfileMapping
 
-DEFAULT_DBT_ROOT_PATH = Path(__file__).parent / "dbt"
+DEFAULT_DBT_ROOT_PATH = (
+    Path(__file__).parent.parent / "dbt"
+)  # As a sibling of the DAGs directory
 DBT_ROOT_PATH = Path(os.getenv("DBT_ROOT_PATH", DEFAULT_DBT_ROOT_PATH))
 
 profile_config = ProfileConfig(
     profile_name="default",
     target_name="dev",
-    profile_mapping=PostgresUserPasswordProfileMapping(
-        conn_id="airflow_db",
+    profile_mapping=DatabricksTokenProfileMapping(
+        conn_id="databricks_conn",
         profile_args={"schema": "public"},
     ),
 )

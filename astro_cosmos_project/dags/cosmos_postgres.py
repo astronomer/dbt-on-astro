@@ -7,15 +7,17 @@ from datetime import datetime
 from pathlib import Path
 
 from cosmos import DbtDag, ProjectConfig, ProfileConfig
-from cosmos.profiles import GoogleCloudServiceAccountFileProfileMapping
+from cosmos.profiles import PostgresUserPasswordProfileMapping
 
-DEFAULT_DBT_ROOT_PATH = Path(__file__).parent / "dbt"  # Inside the DAGs directory
+DEFAULT_DBT_ROOT_PATH = (
+    Path(__file__).parent.parent / "dbt"
+)  # As a sibling of the DAGs directory
 DBT_ROOT_PATH = Path(os.getenv("DBT_ROOT_PATH", DEFAULT_DBT_ROOT_PATH))
 
 profile_config = ProfileConfig(
     profile_name="default",
     target_name="dev",
-    profile_mapping=GoogleCloudServiceAccountFileProfileMapping(
+    profile_mapping=PostgresUserPasswordProfileMapping(
         conn_id="airflow_db",
         profile_args={"schema": "public"},
     ),
@@ -25,7 +27,7 @@ profile_config = ProfileConfig(
 basic_cosmos_dag = DbtDag(
     # dbt/cosmos-specific parameters
     project_config=ProjectConfig(
-        DBT_ROOT_PATH / "bigquery",
+        DBT_ROOT_PATH / "databricks",
     ),
     profile_config=profile_config,
     operator_args={
@@ -36,7 +38,7 @@ basic_cosmos_dag = DbtDag(
     schedule_interval="@daily",
     start_date=datetime(2023, 1, 1),
     catchup=False,
-    dag_id="cosmos_bigquery",
+    dag_id="cosmos_postgres",
     default_args={"retries": 2},
 )
 # [END local_example]

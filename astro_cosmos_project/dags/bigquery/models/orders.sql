@@ -4,8 +4,8 @@ with orders as (
 
     select * from {{ ref('stg_orders') }}
 
-), 
--- Small change
+),
+
 payments as (
 
     select * from {{ ref('stg_payments') }}
