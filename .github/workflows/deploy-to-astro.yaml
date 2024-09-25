@@ -10,6 +10,11 @@ jobs:
       ASTRO_API_TOKEN: ${{ secrets.ASTRO_API_TOKEN }}
     runs-on: ubuntu-latest
     steps:
+      - name: Deploy DAGs/Image
+        uses: astronomer/deploy-action@main
+        with:
+          root-folder: astro_cosmos_project/
+          deployment-id: ${{ vars.DEPLOYMENT_ID }}
       - name: Print GITHUB_ACTIONS env var
         run: echo "GITHUB_ACTIONS=${GITHUB_ACTIONS}"
       - name: DBT Deploy Bigquery
@@ -30,8 +35,3 @@ jobs:
           root-folder: /dbt/databricks/
           mount-path: /dbt/databricks/
           cli-version: 1.28.1
-      - name: Deploy DAGs/Image
-        uses: astronomer/deploy-action@main
-        with:
-          root-folder: astro_cosmos_project/
-          deployment-id: ${{ vars.DEPLOYMENT_ID }}
