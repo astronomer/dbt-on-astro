@@ -35,7 +35,7 @@ basic_cosmos_dag = DbtDag(
         "full_refresh": True,  # used only in dbt commands that support this flag
     },
     execution_config=ExecutionConfig(
-        dbt_executable_path="/usr/local/airflow/dbt_venv/bin/dbt"
+        dbt_executable_path="/usr/local/airflow/dbt_venv_databricks/bin/dbt"
     ),
     # normal dag parameters
     schedule_interval="@daily",
