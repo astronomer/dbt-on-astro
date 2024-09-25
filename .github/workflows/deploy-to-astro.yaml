@@ -1,27 +1,38 @@
-name: Astronomer CI - Deploy code
-
+name: Astronomer CI - Deploy Airflow and dbt code
 on:
-  workflow_dispatch:
-    inputs:
-      deploymentId:
-        description: "Deployment ID"
-        required: true
-        type: string
-      apiToken:
-        description: "Astro API Token"
-        required: true
-        type: string
   push:
     branches:
       - main
 
-env:
-  ASTRO_API_TOKEN: ${{ inputs.apiToken || secrets.ASTRO_API_TOKEN }}
-  DEPLOYMENT_ID: ${{ inputs.deploymentId || vars.DEPLOYMENT_ID }}
-
 jobs:
-  build:
+  prod-astronomer:
+    env:
+      ASTRO_API_TOKEN: ${{ secrets.ASTRO_API_TOKEN }}
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy to Astro
-      uses: astronomer/deploy-action@v0.4
+      - name: Print GITHUB_ACTIONS env var
+        run: echo "GITHUB_ACTIONS=${GITHUB_ACTIONS}"
+      - name: DBT Deploy Bigquery
+        uses: astronomer/deploy-action@main
+        with:
+          action: dbt-deploy
+          deployment-name: CICD with Cosmos and dbt Deploys
+          root-folder: /dbt/bigquery/
+          mount-path: /dbt/bigquery/
+          workspace: ${{ vars.WORKSPACE_ID }}
+          cli-version: 1.28.1
+      - name: DBT Deploy Databricks
+        uses: astronomer/deploy-action@main
+        with:
+          action: dbt-deploy
+          deployment-name: CICD with Cosmos and dbt Deploys
+          root-folder: /dbt/databricks/
+          mount-path: /dbt/databricks/
+          workspace: ${{ vars.WORKSPACE_ID }}
+          cli-version: 1.28.1
+      - name: Deploy DAGs/Image
+        uses: astronomer/deploy-action@main
+        with:
+          root-folder: astro_cosmos_project/
+          deployment-name: CICD with Cosmos and dbt Deploys
+          workspace: ${{ vars.WORKSPACE_ID }}
