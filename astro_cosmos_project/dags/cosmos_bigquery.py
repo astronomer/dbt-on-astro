@@ -6,7 +6,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-from cosmos import DbtDag, ProjectConfig, ProfileConfig
+from cosmos import DbtDag, ProjectConfig, ProfileConfig, ExecutionConfig
 from cosmos.profiles import GoogleCloudServiceAccountFileProfileMapping
 
 DEFAULT_DBT_ROOT_PATH = Path(__file__).parent / "dbt"  # Inside the DAGs directory
@@ -32,6 +32,9 @@ basic_cosmos_dag = DbtDag(
         "install_deps": True,  # install any necessary dependencies before running any dbt command
         "full_refresh": True,  # used only in dbt commands that support this flag
     },
+    execution_config=ExecutionConfig(
+        dbt_executable_path="/usr/local/airflow/dbt_venv/bin/dbt"
+    ),
     # normal dag parameters
     schedule_interval="@daily",
     start_date=datetime(2023, 1, 1),
