@@ -18,8 +18,8 @@ jobs:
         with:
           deploy-type: dbt
           deployment-id: ${{ vars.DEPLOYMENT_ID }}
-          root-folder: dbt/bigquery/
-          mount-path: /usr/local/airflow/dbt/bigquery
+          root-folder: dbt/postgres/
+          mount-path: /usr/local/airflow/dbt/postgres
       - name: DBT Deploy Databricks
         uses: astronomer/deploy-action@main
         with:
