@@ -13,6 +13,8 @@ jobs:
       - name: Deploy DAGs/Image
         uses: astronomer/deploy-action@main
         with:
+          action: deploy
+          deploy-type: infer
           root-folder: astro_cosmos_project/
           deployment-id: ${{ vars.DEPLOYMENT_ID }}
       - name: Print GITHUB_ACTIONS env var
