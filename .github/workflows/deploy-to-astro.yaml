@@ -10,6 +10,8 @@ jobs:
       ASTRO_API_TOKEN: ${{ secrets.ASTRO_API_TOKEN }}
     runs-on: ubuntu-latest
     steps:
+      - name: Print GITHUB_ACTIONS env var
+        run: echo "GITHUB_ACTIONS=${GITHUB_ACTIONS}"
       - name: Deploy DAGs/Image
         uses: astronomer/deploy-action@main
         with:
@@ -17,8 +19,6 @@ jobs:
           deploy-type: infer
           root-folder: astro_cosmos_project/
           deployment-id: ${{ vars.DEPLOYMENT_ID }}
-      - name: Print GITHUB_ACTIONS env var
-        run: echo "GITHUB_ACTIONS=${GITHUB_ACTIONS}"
       - name: DBT Deploy Bigquery
         uses: astronomer/deploy-action@main
         with:
