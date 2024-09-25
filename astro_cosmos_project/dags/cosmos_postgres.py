@@ -15,11 +15,11 @@ DEFAULT_DBT_ROOT_PATH = (
 DBT_ROOT_PATH = Path(os.getenv("DBT_ROOT_PATH", DEFAULT_DBT_ROOT_PATH))
 
 profile_config = ProfileConfig(
-    profile_name="default",
+    profile_name="airflow_db",
     target_name="dev",
     profile_mapping=PostgresUserPasswordProfileMapping(
-        conn_id="airflow_db",
-        profile_args={"schema": "public"},
+        conn_id="airflow_metadata_db",
+        profile_args={"schema": "dbt"},
     ),
 )
 
