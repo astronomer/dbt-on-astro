@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Print GITHUB_ACTIONS env var
         run: echo "GITHUB_ACTIONS=${GITHUB_ACTIONS}"
-      - name: DBT Deploy Bigquery
+      - name: DBT Deploy Postgres
         uses: astronomer/deploy-action@main
         with:
           deploy-type: dbt
