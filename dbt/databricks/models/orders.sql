@@ -11,7 +11,7 @@ payments as (
     select * from {{ ref('stg_payments') }}
 
 ),
-
+-- Deploy all
 order_payments as (
 
     select
