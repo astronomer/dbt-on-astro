@@ -1,4 +1,4 @@
-name: 'databricks'
+name: 'postgres'
 
 config-version: 2
 version: '0.1'
