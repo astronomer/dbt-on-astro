@@ -14,14 +14,14 @@ jobs:
       - name: Print GITHUB_ACTIONS env var
         run: echo "GITHUB_ACTIONS=${GITHUB_ACTIONS}"
       - name: DBT Deploy Postgres
-        uses: astronomer/deploy-action@main
+        uses: astronomer/deploy-action@v0.7
         with:
           deploy-type: dbt
           deployment-id: ${{ vars.DEPLOYMENT_ID }}
           root-folder: dbt/postgres/
           mount-path: /usr/local/airflow/dbt/postgres
       - name: DBT Deploy Databricks
-        uses: astronomer/deploy-action@main
+        uses: astronomer/deploy-action@v0.7
         with:
           action: deploy
           deploy-type: dbt
@@ -29,7 +29,7 @@ jobs:
           root-folder: dbt/databricks/
           mount-path: /usr/local/airflow/dbt/databricks
       - name: Deploy DAGs/Image
-        uses: astronomer/deploy-action@main
+        uses: astronomer/deploy-action@v0.7
         with:
           action: deploy
           deploy-type: infer
