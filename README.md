@@ -1,1 +1,2 @@
-Advanced dbt Deploys & Cosmos use cases on Astro.
+# Q: How do you run dbt on Astro? 
+# A: This repository shows you how
