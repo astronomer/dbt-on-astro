@@ -1,0 +1,3 @@
+# Cosmos dag where the project lives outside the Astro project
+dags/cosmos_databricks.py
+dags/cosmos_postgres.py

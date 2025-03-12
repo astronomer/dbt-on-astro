@@ -22,6 +22,6 @@ This repository provides a comprehensive guide on setting up, running, and maint
   - **`dags/`**: Three DAGs for rendering Astronomer Cosmos
   - **`dags/dbt`**: This directory shows an example of keeping your dbt code and DAG code **coupled together**. This is the best strategy for small teams with only one repo.
 
-- **`dbt/`**: This directory contains dbt projects that live **outside of your Astro project directory.**. This directory can live in the same repository as your Astro project OR can live in a different repository entirely.
+- **`dbt/`**: This directory contains dbt projects that live **outside of your Astro project directory**. This directory can live in the same repository as your Astro project OR can live in a different repository entirely.
 
 - **`.github/workflows/deploy-to-astro.yaml`**: This GitHub Actions workflow file automates the deployment of your Astro project to the Astronomer platform. It also independently deploys dbt projects from **`dbt/`** when code changes.
